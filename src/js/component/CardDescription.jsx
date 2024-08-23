@@ -1,36 +1,30 @@
 import React, { useContext } from 'react';
-import { Context } from "../store/appContext";
-import { useParams } from "react-router-dom";
 
-export const CardDescription = ({character}) => {
-    console.log(character);
+export const CardDescription = (props) => {
 
-    
+    const {item, image, propertiesToShow} = props
+
+    if(!item){return null}
+
   return (
-    <div>
-        <div className="card mb-3" style={{maxWidth: "540px"}}>
-            <div className="row g-0">
-                <div className="col-md-4">
-                <img src="..." className="img-fluid rounded-start" alt="..."/>
+    <div className='d-flex justify-content' style={{marginTop:"60px"}}>
+        <div className=" mb-3" style={{maxWidth: "600px", maxHeight:"500px"}}>
+            <div className="row border rounded-3">
+                <div className="col-md-6 p-0">
+                     <img src={image} className="img-fluid rounded-start rounded-circle object-fit-cover h-100" style={{height:"400px", width:"300px"}} alt="..."/>
                 </div>
-                <div className="col-md-8">
-                <div className="card-body">
-                    <h5 className="card-title">{character.name}</h5>
-                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                <div className="col-md-6">
+                <div className="card-body ">
+                    <h4 className="card-title mb-4 fw-bold text-white text-decoration-underline">{item?.name}</h4>
+                    {
+                        propertiesToShow.map((key)=>{
+                           return <p className='text-uppercase text-primary fw-bold' key={key}>{key}:<span className='ms-2 text-lowercase text-white fw-medium'>{item.properties?.[key]}</span></p>
+                        })
+                    }
+                    
                 </div>
                 </div>
             </div>
-        </div>
-        <hr />
-        <div>
-            <p>Height: {character.height}</p>
-            <p>Mass: {character.mass}</p>
-            <p>Hair Color: {character.hair_color}</p>
-            <p>Skin Color: {character.skin_color}</p>
-            <p>Eye Color: {character.eye_color}</p>
-            <p>Birth Year: {character.birth_year}</p>
-            <p>Gender: {character.gender}</p>
         </div>
     </div>
   )
